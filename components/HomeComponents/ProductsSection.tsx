@@ -19,13 +19,13 @@ const ProductsSection = () => {
                 <TabsContent value="all" className='w-full'>
                     <ProductsList/>
                 </TabsContent>
-                <TabsContent value="vegetable">
+                <TabsContent value="vegetable" className='w-full'>
                     <ProductsList/>
                 </TabsContent>
-                <TabsContent value="fruit">
+                <TabsContent value="fruit" className='w-full'>
                     <ProductsList/>
                 </TabsContent>
-                <TabsContent value="meat">
+                <TabsContent value="meat" className='w-full'>
                     <ProductsList/>
                 </TabsContent>
             </Tabs>
