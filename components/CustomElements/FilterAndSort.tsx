@@ -18,14 +18,15 @@ import { IoClose } from 'react-icons/io5'
 
 type Checked = DropdownMenuCheckboxItemProps["checked"]
 
-const FilterAndSort = () => {
+const FilterAndSort = ({type}: {type: 'filter' | 'search'}) => {
   const [showStatusBar, setShowStatusBar] = useState<Checked>(true)
   const [showActivityBar, setShowActivityBar] = useState<Checked>(false)
   const [showPanel, setShowPanel] = useState<Checked>(false)
   const [meatAndFish, setMeatAndFish] = useState<Checked>(false)
-  const [position, setPosition] = React.useState("bottom")
+  const [position, setPosition] = useState("bottom")
+  const [searchTerm, setSearchTerm] = useState("Tomato")
   return (
-    <section className='w-full'>
+    <section className='w-full mb-5'>
         <section className="flex flex-col w-full gap-4">
             <section className="flex justify-between w-full">
                 <DropdownMenu>
@@ -75,15 +76,19 @@ const FilterAndSort = () => {
                     </DropdownMenu>
             </section>
 
-            <section className="flex justify-between ">
+            <section className="flex justify-between items-baseline border-b py-2 px-2">
+                {type === 'filter' ?<section className="flex gap-2 w-1/2 overflow-x-scroll">
+                    <Badge variant="outline" className='px-2 text-sm py-1 rounded-sm cursor-pointer'>Badge   <span className="pl-2"><IoClose /></span></Badge>
+                    <Badge variant="outline" className='px-2 text-sm py-1 rounded-sm cursor-pointer'>Badge   <span className="pl-2"><IoClose /></span></Badge>
+                    <Badge variant="outline" className='px-2 text-sm py-1 rounded-sm cursor-pointer'>Badge   <span className="pl-2"><IoClose /></span></Badge>
+                    <Badge variant="outline" className='px-2 text-sm py-1 rounded-sm cursor-pointer'>Badge   <span className="pl-2"><IoClose /></span></Badge>
+                </section> :
                 <section className="flex gap-2 w-1/2 overflow-x-scroll">
-                    <Badge variant="outline" className='px-2 text-sm py-1 rounded-sm cursor-pointer'>Badge   <span className="pl-2"><IoClose /></span></Badge>
-                    <Badge variant="outline" className='px-2 text-sm py-1 rounded-sm cursor-pointer'>Badge   <span className="pl-2"><IoClose /></span></Badge>
-                    <Badge variant="outline" className='px-2 text-sm py-1 rounded-sm cursor-pointer'>Badge   <span className="pl-2"><IoClose /></span></Badge>
-                    <Badge variant="outline" className='px-2 text-sm py-1 rounded-sm cursor-pointer'>Badge   <span className="pl-2"><IoClose /></span></Badge>
-                </section>
+                    <p className="md:text-base text-sm">Search results for {searchTerm}</p>
+                </section>}
+                
                 <section className="">
-                    <p className=""><span className='font-bold'>25</span> Results Found</p>
+                    <p className="md:text-base text-sm"><span className='font-bold'>25</span> Results Found</p>
                 </section>
             </section>
         </section>
