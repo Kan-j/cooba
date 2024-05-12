@@ -18,7 +18,7 @@ export default function HomeLayout({
   return (
     <main className="">
         <NavBar/>
-            <section className="flex min-h-screen w-full px-6 sm:px-8 md:px-10 lg:px-20 py-6">
+            <section className="flex min-h-screen w-full px-6 sm:px-8 md:px-10 lg:px-20 pb-6">
                 {children}
             </section>
         <Footer/>
