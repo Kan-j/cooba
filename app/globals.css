@@ -1,6 +1,6 @@
 @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+@tailwind components;
+@tailwind utilities;
 
 
   ::-webkit-scrollbar {
@@ -12,6 +12,18 @@
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
   } 
+
+  .slick-list, .slick-slider, .slick-track{
+    display: flex !important;
+  }
+
+  .slick-dots {
+    bottom: '-50px';
+    display: flex  !important;
+    gap: 50px;
+    padding-left: 20px;
+  }
+
   @layer base {
     :root {
       --background: 0 0% 100%;
