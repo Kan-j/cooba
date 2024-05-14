@@ -51,9 +51,9 @@ const FoodStuffDetail = () => {
                     <button  className='rounded-full px-auto flex justify-center items-center w-14 hover:bg-green-100'><IoHeartOutline  size={23}/></button>
                 </section>
                 <section className="flex justify-between items-center ">
-                    <p className="text-sm font-medium"><span className='font-bold'>Category:</span> Vegetable</p>
+                    <p className="text-sm font-medium "><span className='font-bold '>Category:</span> Vegetable</p>
                     <section className="flex gap-1 md:gap-3 items-center">
-                        <p className="font-medium text-sm">Share :</p>
+                        <p className="font-medium text-sm hidden md:flex">Share :</p>
                         <button className="rounded-full px-2 py-2 hover:bg-green-1 hover:text-white">
                             <FaFacebook  className='size-4 md:size-6' />
                         </button>
