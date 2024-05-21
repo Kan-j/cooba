@@ -21,8 +21,6 @@ const Cart = () => {
                     <ShoppingCartItem/>
                     <ShoppingCartItem/>
                     <ShoppingCartItem/>
-
-                        
                 </section>
 
                 <section className="cols-span-1 md:col-span-3 rounded-lg shadow-md px-6 h-fit pt-4">
