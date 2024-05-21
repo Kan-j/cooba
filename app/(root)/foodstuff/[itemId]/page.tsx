@@ -1,3 +1,4 @@
+import CustomBreadCrumbs from '@/components/CustomElements/CustomBreadCrumbs'
 import ProductDetailCarousel from '@/components/CustomElements/ProductDetailCarousel'
 import RelatedProducts from '@/components/CustomElements/RelatedProducts'
 import { Badge } from '@/components/ui/badge'
@@ -11,6 +12,7 @@ import { IoHeartOutline } from 'react-icons/io5'
 const FoodStuffDetail = () => {
   return (
     <section className='w-full flex flex-col'>
+        <CustomBreadCrumbs/>
         <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <section className="w-full h-full">
                 <ProductDetailCarousel/>

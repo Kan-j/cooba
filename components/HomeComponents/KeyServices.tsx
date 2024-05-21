@@ -1,8 +1,12 @@
+"use client"
 import React from 'react'
 import { Button } from '../ui/button'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+
 
 const KeyServices = () => {
+    const router = useRouter()
   return (
     <section className='grid md:grid-cols-2 grid-cols-1 gap-4 md:gap-0 mb-12'>
         <section className="flex w-full gap-4">
@@ -19,7 +23,7 @@ const KeyServices = () => {
                 <h1 className="text-lg font-semibold">Freshness, Every day</h1>
                 <p className="text-gray-700 text-sm md:text-base">Enjoy everyday freshness with Cooba. Our quality agricultural products are sourced directly from local farms to ensure you get the best flavor in every bite.</p>
             </section>
-            <Button className='md:w-fit w-full'>Shop Now</Button>
+            <Button className='md:w-fit w-full' onClick={()=> router.push('/shop')}>Shop Now</Button>
         </section>
     </section>
   )

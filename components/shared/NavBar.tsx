@@ -114,7 +114,7 @@ const NavBar = () => {
         <section className='md:flex hidden gap-4 2xl:gap-10'>
             <Link href="/">Home</Link>
             <Link href="/shop">Shop</Link>
-            <Link href="href">About Us</Link>
+            <Link href="href">Packages</Link>
         </section>
         <article className="flex gap-1 items-center">
             <section >
