@@ -89,7 +89,7 @@ const CheckOut = ({searchParams}: Params) => {
                 </section>
                 <section className="grid grid-cols-3 gap-6 w-full">
                 <section className="col-span-3 md:col-span-2 rounded-lg shadow-lg h-fit">
-                    <section className="w-full px-6">
+                    <section className="w-full px-4 md:px-6">
                             <h1 className="font-semibold mt-8 pb-4">Summary</h1>
 
                             <section className="flex py-2 flex-col gap-4">
@@ -124,7 +124,7 @@ const CheckOut = ({searchParams}: Params) => {
                     </section>
                     
                     <section className="col-span-3 md:col-span-1 flex flex-col ">
-                        <section className="flex flex-col rounded-lg shadow-lg px-8 py-6">
+                        <section className="flex flex-col rounded-lg shadow-lg px-4 md:px-8 py-6">
                             <h1 className=" border-b pt-2 pb-4 font-semibold">Delivery Information</h1>
                             <h3 className="pt-3 font-medium">Delivery Method</h3>
                             <p className="text-gray-500 text-sm leading-6">Regular </p>
