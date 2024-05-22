@@ -24,6 +24,20 @@
     padding-left: 20px;
   }
 
+   /* Account Profile  */
+   .account-form_image-label {
+    @apply flex h-24 w-24 items-center border justify-center rounded-full text-gray-800 !important;
+  }
+  
+  .account-form_image-input {
+    @apply cursor-pointer border-none bg-transparent outline-none text-gray-900 file:text-blue-400 !important;
+  }
+  
+  .account-form_input {
+    @apply border border-gray-800    !important;
+  }
+  
+
   @layer base {
     :root {
       --background: 0 0% 100%;

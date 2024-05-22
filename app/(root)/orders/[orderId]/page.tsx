@@ -15,8 +15,7 @@ const OrderDetailsPage = () => {
         <section className="flex flex-col gap-6">
             <h1 className='font-bold text-xl '>Order Details</h1>
             
-            <section className="mt-10 w-full">
-                
+            <section className=" w-full">
                 <section className="grid grid-cols-3 gap-6 w-full">
                 <section className="col-span-3 md:col-span-2 rounded-lg shadow-lg h-fit">
                     <section className="w-full px-4 md:px-6">
