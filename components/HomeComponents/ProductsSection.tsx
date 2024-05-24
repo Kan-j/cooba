@@ -9,7 +9,7 @@ const ProductsSection = () => {
             <header className='flex justify-center text-xl font-semibold'>Introducing Our Products</header>
         </section>
         <section className="flex justify-center w-full">
-            <Tabs defaultValue="account" className='flex flex-col items-center w-full'>
+            <Tabs defaultValue="all" className='flex flex-col items-center w-full'>
                 <TabsList>
                     <TabsTrigger value="all">All</TabsTrigger>
                     <TabsTrigger value="vegetable">Vegetable</TabsTrigger>

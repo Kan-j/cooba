@@ -11,38 +11,38 @@ import {
     SheetTrigger,
   } from "@/components/ui/sheet"
 import { cn } from '@/lib/utils'
-import { FaClipboard, FaHamburger, FaInfoCircle, FaShoppingCart, FaStore, FaUserCircle } from 'react-icons/fa'
-import { BiMenu, BiMenuAltLeft } from 'react-icons/bi'
+import { FaClipboard, FaInfoCircle, FaShoppingCart, FaStore, FaUserCircle } from 'react-icons/fa'
+import { BiMenuAltLeft } from 'react-icons/bi'
 
   export const sidebarLinks = [
     {
         icon: <FaUserCircle size={20}/>,
-        route: '/',
+        route: '/profile',
         label: 'My Account'
     },
     {
         icon: <FaClipboard size={20}/>,
-        route: '/upcoming',
+        route: '/orders',
         label: 'My Orders'
     },
     {
         icon: <FaShoppingCart size={20}/>,
-        route: '/personalroom',
+        route: '/cart',
         label: 'My Cart'
     },
     {
         icon: <IoHeartOutline  size={20}/>,
-        route: '/personal-room',
+        route: '/packages',
         label: 'My Favorites'
     },
     {
         icon: <FaStore size={20}/>,
-        route: '/previous',
+        route: '/store',
         label: 'Store'
     },
     {
         icon: <FaInfoCircle size={20}/>,
-        route: '/recordings',
+        route: '/about',
         label: 'About Us'
     },
 
