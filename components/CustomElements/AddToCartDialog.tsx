@@ -35,8 +35,7 @@ export function AddToCartDialog({children}:{children: React.ReactNode}) {
                     <h1 className="text-3xl font-bold">Cabbage</h1>
                     <span className=""><Badge className='bg-green-1'>In Stock</Badge></span>
                 </div>
-                <p className="text-gray-500 mb-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde porro quod odio aliquid aperiam amet. Consectetur facere adipisci alias sint. Eligendi aliquid tempore excepturi. Nostrum distinctio quae minima! Et, numquam.</p>
-                <div className="flex justify-between mb-4">
+                <div className="flex justify-between mb-4 items-center">
                     <p className="text-xl font-semibold text-green-1">₵5.00</p>
                     <section className="">
                         <Select>
