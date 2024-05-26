@@ -4,6 +4,7 @@ import React from 'react'
 import { BsCart, BsPerson } from 'react-icons/bs'
 import { IoHeartOutline } from 'react-icons/io5'
 
+
 import {
     Sheet,
     SheetClose,
@@ -12,7 +13,11 @@ import {
   } from "@/components/ui/sheet"
 import { cn } from '@/lib/utils'
 import { FaClipboard, FaInfoCircle, FaShoppingCart, FaStore, FaUserCircle } from 'react-icons/fa'
-import { BiMenuAltLeft } from 'react-icons/bi'
+import { BiLogIn, BiMenuAltLeft } from 'react-icons/bi'
+import { currentUser } from '@clerk/nextjs/server'
+import ProfileButton from '../CustomElements/ProfileButton'
+import CustomLoginButton from '../CustomElements/CustomLoginButton'
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
 
   export const sidebarLinks = [
     {
@@ -37,7 +42,7 @@ import { BiMenuAltLeft } from 'react-icons/bi'
     },
     {
         icon: <FaStore size={20}/>,
-        route: '/store',
+        route: '/shop',
         label: 'Store'
     },
     {
@@ -50,7 +55,9 @@ import { BiMenuAltLeft } from 'react-icons/bi'
 
 ] 
 
-const NavBar = () => {
+const NavBar = async() => {
+    const user = await currentUser();
+
   return (
     <nav className="flex w-full justify-between items-center px-6 sm:px-8 md:px-10 lg:px-20 py-6">
             <section className='flex items-center gap-4'>
@@ -60,7 +67,7 @@ const NavBar = () => {
                         <BiMenuAltLeft size={30} className='cursor-pointer md:hidden'/>
                         {/* <Image src="/icons/hamburger.svg" alt="hanburger icon" width={36} height={36} className="cursor-pointer sm:hidden"/> */}
                     </SheetTrigger>
-                    <SheetContent side="left" className="border-none bg-black-main">
+                    <SheetContent side="left" className="border-none bg-black-main overflow-y-scroll">
                         <Link href="/" className="flex items-center gap-1">
                             {/* <Image src='/icons/logo.svg' alt="Yoom logo" width={32} height={32} className="max-sm:size-10"/> */}
                             <p className="text-[26px] font-extrabold text-white">Cooba</p>
@@ -123,10 +130,14 @@ const NavBar = () => {
             <section className="">
                 <button  className='rounded-full px-2 py-2 hover:bg-green-100'><BsCart  size={23}/></button>
             </section>
-            <section className="">
-                <button  className='rounded-full px-2 py-2 hover:bg-green-100'><BsPerson  size={23}/></button>
-            </section>
-            
+                <SignedIn>
+            {/* Mount the UserButton component */}
+            <UserButton />
+        </SignedIn>
+        <SignedOut>
+            {/* Signed out users get sign in button */}
+            <CustomLoginButton/>
+        </SignedOut>
         </article>
     </nav>
   )

@@ -15,7 +15,6 @@ const Home = () => {
         <Stats/>
         <TestimonialSection/>
       </section>
-      
     </section>
   )
 }

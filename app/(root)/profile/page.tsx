@@ -1,5 +1,6 @@
 import CustomBreadCrumbs from '@/components/CustomElements/CustomBreadCrumbs'
 import { Button } from '@/components/ui/button'
+import { SignedIn, UserButton } from '@clerk/nextjs'
 import React from 'react'
 
 const ProfilePage = () => {
@@ -15,7 +16,6 @@ const ProfilePage = () => {
 
                 </div>
                 <h1 className="">Kwasi Addo Nyarko</h1>
-                <Button variant='link' className='w-fit text-center'>Manage Account</Button>
                 <Button variant='outline' className='w-fit text-center'>Edit Profile</Button>
               </section>
               <section className="col-span-2 md:col-span-1 flex flex-col items-start shadow-lg rounded-md px-4 py-6 md:w-1/2 w-full justify-center">

@@ -9,7 +9,6 @@ const Shop = () => {
     <section className='w-full'>
         <CustomBreadCrumbs/>
         <FilterAndSort type='filter'/>
-        <Link href="/foodstuff/1">Hi</Link>
         <ShopProducts/>
     </section>
   )
