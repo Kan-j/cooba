@@ -16,7 +16,7 @@ const Product = () => {
     <section className='w-full'>
         <section className="border px-4 py-3 rounded-lg">
             <Link href={`/foodstuff/1`}>
-                <Image src="/tomato.png" alt="alt" className='w-full' width={200} height={200} />
+                <Image src="/tomato.jpg" alt="alt" className='w-full object-cover aspect-auto' width={200}  height={200} />
             </Link>
             <section className="flex flex-col">
                 <section className="flex justify-between items-center mb-3">
