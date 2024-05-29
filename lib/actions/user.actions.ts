@@ -6,12 +6,12 @@ import User from "../models/User.model";
 export async function fetchUser(clerkId: string) {
     try {
       await connectToDatabase();
-  
-      return await User.findOne({ clerkId: clerkId })
+      const user = await User.findOne({ clerkId: clerkId })
+      return user;
     } catch (error: any) {
       throw new Error(`Failed to fetch user: ${error.message}`);
     }
-  }
+}
 
 
   interface UserParams {
@@ -41,6 +41,8 @@ export async function fetchUser(clerkId: string) {
     university = null,
   }: UserParams): Promise<void> {
     try {
+        await connectToDatabase();
+
         await User.findOneAndUpdate(
         { clerkId: clerkId },
         {

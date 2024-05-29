@@ -10,7 +10,7 @@ const ShoppingCartItem = () => {
   return (
     <section className="w-full flex border gap-4 rounded-lg px-2 py-4 md:px-6 md:py-6">
         <div className="">
-            <Image src="/tomato.png" alt="alt" width={200} height={400} />
+            <Image src="/tomato.jpg" alt="alt" width={200} height={400} />
         </div>
         <div className="flex flex-col w-full">
             <div className="flex gap-2 mb-4">

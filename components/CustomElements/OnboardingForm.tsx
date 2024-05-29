@@ -297,7 +297,6 @@ const OnboardingForm = ({user}:OnboardingFormProps ) => {
                           onChange={field.onChange}
                           className="block w-full"
                           disabled={!form.watch("country")}
-                          defaultValue={field.value}
                         >
                           <option value="">Select a region</option>
                           {regions.map((region) => (

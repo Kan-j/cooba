@@ -130,14 +130,14 @@ const NavBar = async() => {
             <section className="">
                 <button  className='rounded-full px-2 py-2 hover:bg-green-100'><BsCart  size={23}/></button>
             </section>
-                <SignedIn>
+            <SignedIn>
             {/* Mount the UserButton component */}
-            <UserButton />
-        </SignedIn>
-        <SignedOut>
-            {/* Signed out users get sign in button */}
-            <CustomLoginButton/>
-        </SignedOut>
+                <UserButton />
+            </SignedIn>
+            <SignedOut>
+                {/* Signed out users get sign in button */}
+                <CustomLoginButton/>
+            </SignedOut>
         </article>
     </nav>
   )
