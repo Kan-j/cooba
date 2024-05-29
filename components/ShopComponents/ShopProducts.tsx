@@ -5,8 +5,8 @@ import PaginationSection from '../CustomElements/PaginationSection';
 const ShopProducts = () => {
   return (
     <section className="">
-        <ProductsList/>
-        <PaginationSection/>
+        {/* <ProductsList/> */}
+        {/* <PaginationSection/> */}
     </section>
   )
 }
