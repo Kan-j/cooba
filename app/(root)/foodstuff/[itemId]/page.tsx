@@ -76,7 +76,7 @@ const FoodStuffDetail = () => {
         {/* Related Products */}
         <section>
             <h1 className="flex justify-center w-full text-xl font-semibold mb-4 mt-10">Related Products</h1>
-            <RelatedProducts/>
+            {/* <RelatedProducts/> */}
         </section>
     </section>
   )
