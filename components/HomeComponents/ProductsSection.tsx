@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import ProductsList from './ProductsList'
 import { getCategories } from '@/lib/actions/category.actions'
 
+
 const ProductsSection = async() => {
   const allCategories = await getCategories(4)
   return (
@@ -24,7 +25,7 @@ const ProductsSection = async() => {
                     allCategories?.map((category)=> {
                         return (
                             <TabsContent value={category.name} key={category.name} className='w-full'>
-                                <ProductsList/>
+                                <ProductsList products={category.products}/>
                             </TabsContent>
                         )
                     })
