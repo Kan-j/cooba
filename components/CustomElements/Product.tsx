@@ -40,7 +40,7 @@ const Product: React.FC<{ product: ProductParam }>=({product}) => {
             </Link>
             <section className="flex flex-col">
                 <section className="flex justify-between items-center mb-3">
-                    <Link href={`/foodstuff/1`} className="">
+                    <Link href={`/foodstuff/${product._id}`} className="">
                         <h1 className="font-medium mb-1">{product.name}</h1>
                         <p className='font-semibold text-sm'>GH₵5.00</p>
                     </Link>

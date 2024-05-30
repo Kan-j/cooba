@@ -40,9 +40,19 @@ const ProductSchema: Schema = new Schema({
     validate: [(val: string[]) => val.length <= 4, '{PATH} exceeds the limit of 4']
   },
   prices: {
-    type: [PriceSchema],
-    required: true,
-    validate: [(val: IPrice[]) => val.length > 0, 'At least one price is required']
+    type: [
+      {
+        quantity: {
+          type: String,
+          required: true
+        },
+        price: {
+          type: Number,
+          required: true
+        }
+      }
+    ],
+    required: true
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,

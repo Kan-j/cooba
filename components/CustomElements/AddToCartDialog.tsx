@@ -25,11 +25,8 @@ export function AddToCartDialog({children}:{children: React.ReactNode}) {
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="xs:max-w-[320px]  sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg ">
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-            <section className="w-full h-full">
-                {/* <ProductDetailCarousel/> */}
-            </section>
+      <DialogContent className="xs:max-w-[320px]   ">
+      <section className="grid grid-cols-1  gap-6 w-full">
             <section className="flex flex-col mt-10">
                 <div className="flex gap-2 mb-4">
                     <h1 className="text-3xl font-bold">Cabbage</h1>
