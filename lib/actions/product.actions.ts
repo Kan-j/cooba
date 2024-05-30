@@ -1,6 +1,8 @@
 "use server"
 import { connectToDatabase } from "../config/mongodb";
+import Category from "../models/Category.model";
 import Product from "../models/Product.model";
+
 
 
 export async function getProductsByCategory(categoryId: string, limit?: number, pageSize?: number, page?: number) {
@@ -35,4 +37,43 @@ export async function getProductsByCategory(categoryId: string, limit?: number, 
     } catch (error: any) {
       throw new Error(`Failed to fetch products: ${error.message}`);
     }
+}
+
+
+export async function getProductDetails(productId: string) {
+  try {
+    // Connect to the database
+    await connectToDatabase();
+
+   const product = await Product.findById(productId)
+   const category = await Category.findById(product.category)
+
+    // Fetch related products from the same category
+    const relatedProducts = await Product.find({
+      _id: { $ne: product._id },
+      category: product.category._id, // Ensure we use the correct ObjectId
+    })
+      .limit(4)
+      .exec();
+
+    // If fewer than 4 related products, fetch additional products from other categories
+    if (relatedProducts.length < 4) {
+      const additionalProducts = await Product.find({
+        _id: { $ne: product._id },
+        category: { $ne: product.category._id }, // Ensure we use the correct ObjectId
+      })
+        .limit(4 - relatedProducts.length)
+        .exec();
+
+      relatedProducts.push(...additionalProducts);
+    }
+
+    return {
+      product,
+      category,
+      relatedProducts,
+    };
+  } catch (error: any) {
+    throw new Error(`Failed to fetch product details: ${error.message}`);
   }
+}

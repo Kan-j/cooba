@@ -4,25 +4,32 @@ import RelatedProducts from '@/components/CustomElements/RelatedProducts'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { getProductDetails } from '@/lib/actions/product.actions'
 import React from 'react'
 import { BiMinus, BiPlus } from 'react-icons/bi'
 import { FaFacebook, FaInstagram, FaTwitter, FaWhatsapp } from 'react-icons/fa'
 import { IoHeartOutline } from 'react-icons/io5'
 
-const FoodStuffDetail = () => {
+interface Params {
+    params: {
+        itemId: string
+    }
+}
+const FoodStuffDetail = async({params}:Params) => {
+  const {product,category, relatedProducts} = await getProductDetails(params.itemId);
   return (
     <section className='w-full flex flex-col'>
         <CustomBreadCrumbs/>
         <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <section className="w-full h-full">
-                <ProductDetailCarousel/>
+                <ProductDetailCarousel images ={product.images}/>
             </section>
             <section className="flex flex-col mt-10">
                 <div className="flex gap-2 mb-4">
-                    <h1 className="text-3xl font-bold">Cabbage</h1>
-                    <span className=""><Badge className='bg-green-1'>In Stock</Badge></span>
+                    <h1 className="text-3xl font-bold">{product.name}</h1>
+                    <span className=""><Badge className={product.inStock? 'bg-green-1': 'bg-red-700'}>{product.inStock ? 'In Stock': 'Out of stock'}</Badge></span>
                 </div>
-                <p className="text-gray-500 mb-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde porro quod odio aliquid aperiam amet. Consectetur facere adipisci alias sint. Eligendi aliquid tempore excepturi. Nostrum distinctio quae minima! Et, numquam.</p>
+                <p className="text-gray-500 mb-6">{product.description}</p>
                 <div className="flex justify-between mb-4">
                     <p className="text-xl font-semibold text-green-1">₵5.00</p>
                     <section className="">
@@ -53,7 +60,7 @@ const FoodStuffDetail = () => {
                     <button  className='rounded-full px-auto flex justify-center items-center w-14 hover:bg-green-100'><IoHeartOutline  size={23}/></button>
                 </section>
                 <section className="flex justify-between items-center ">
-                    <p className="text-sm font-medium "><span className='font-bold '>Category:</span> Vegetable</p>
+                    <p className="text-sm font-medium "><span className='font-bold '>Category:</span> {category.name}</p>
                     <section className="flex gap-1 md:gap-3 items-center">
                         <p className="font-medium text-sm hidden md:flex">Share :</p>
                         <button className="rounded-full px-2 py-2 hover:bg-green-1 hover:text-white">
@@ -75,8 +82,8 @@ const FoodStuffDetail = () => {
 
         {/* Related Products */}
         <section>
-            <h1 className="flex justify-center w-full text-xl font-semibold mb-4 mt-10">Related Products</h1>
-            {/* <RelatedProducts/> */}
+            <h1 className="flex justify-center w-full text-xl font-semibold mb-4 mt-10 ">Related Products</h1>
+            <RelatedProducts relatedProducts={relatedProducts}/>
         </section>
     </section>
   )

@@ -11,6 +11,7 @@ interface IProduct extends Document {
   images: string[];
   prices: IPrice[];
   category: mongoose.Schema.Types.ObjectId;
+  inStock: boolean;
 }
 
 const PriceSchema: Schema = new Schema({
@@ -47,6 +48,10 @@ const ProductSchema: Schema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Category',
     required: true
+  },
+  inStock: {
+    type: Boolean,
+    default: true // Default value for inStock
   }
 });
 

@@ -35,7 +35,7 @@ const Product: React.FC<{ product: ProductParam }>=({product}) => {
   return (
     <section className='w-full'>
         <section className="border px-4 py-3 rounded-lg">
-            <Link href={`/foodstuff/1`}>
+            <Link href={`/foodstuff/${product._id}`}>
                 <Image src={product.images[0]} alt={product.name} className='w-full object-cover aspect-auto' width={200}  height={200} />
             </Link>
             <section className="flex flex-col">

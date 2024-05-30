@@ -26,14 +26,14 @@ function SamplePrevArrow(props:any) {
 }
 
 
-const ProductDetailCarousel = () => {
+const ProductDetailCarousel = ({images}:{images:string[]}) => {
     const settings = {
         customPaging: function(i:any) {
           return (
             <section className="flex w-12">
                <a>
-              <img src={`/abstract0${i + 1}.jpg`} className="w-60" />
-            </a>
+              <Image src={images[i]} alt="alt" className="w-60" width={240} height={240} />
+              </a>
             </section>
           );
         },
@@ -49,18 +49,14 @@ const ProductDetailCarousel = () => {
       return (
         <div className="slider-container w-full ">
           <Slider {...settings}>
-            <div>
-              <img src={ "/abstract01.jpg"} />
-            </div>
-            <div>
-              <img src={ "/abstract02.jpg"} />
-            </div>
-            <div>
-              <img src={ "/abstract03.jpg"} />
-            </div>
-            <div>
-              <img src={ "/abstract04.jpg"} />
-            </div>
+            {images.map((image)=>{
+              return (
+                <div key={image} className="w-full">
+                  {/* <img src={image} /> */}
+                  <Image src={image} alt="alt" className="w-full" width={400}  height={400}/>
+              </div>
+              )
+            })}
           </Slider>
         </div>
       );
