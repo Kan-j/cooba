@@ -63,7 +63,7 @@ const NavBar = async() => {
     let userInfo;
     if(user) {userInfo = await fetchUser(user?.id);}
 
-    const cartItems = await fetchCartItems(userInfo.id)
+    const cartItems = await fetchCartItems(userInfo._id)
 
   return (
     <nav className="flex w-full justify-between items-center px-6 sm:px-8 md:px-10 lg:px-20 py-6">
