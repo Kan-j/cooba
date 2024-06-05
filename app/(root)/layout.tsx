@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import NavBar from '../../components/shared/NavBar';
 import Footer from '../../components/shared/Footer';
-
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer} from 'react-toastify';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function HomeLayout({
             <section className="flex min-h-screen w-full px-6 sm:px-8 md:px-10 lg:px-20 pb-6">
                 {children}
             </section>
+            <ToastContainer />
         <Footer/>
     </main>
   );

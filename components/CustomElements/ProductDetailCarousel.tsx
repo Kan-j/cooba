@@ -53,7 +53,7 @@ const ProductDetailCarousel = ({images}:{images:string[]}) => {
               return (
                 <div key={image} className="w-full">
                   {/* <img src={image} /> */}
-                  <Image src={image} alt="alt" className="w-full" width={400}  height={400}/>
+                  <Image src={image} alt="alt" className="w-full" width={400}  height={400} priority={true}/>
               </div>
               )
             })}

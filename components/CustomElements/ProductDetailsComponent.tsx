@@ -6,11 +6,17 @@ import { BiMinus, BiPlus } from 'react-icons/bi'
 import { Button } from '../ui/button'
 import { FaFacebook, FaInstagram, FaTwitter, FaWhatsapp } from 'react-icons/fa'
 import { IoHeartOutline } from 'react-icons/io5'
+import { useRouter } from 'next/navigation'
+import { addToCart } from '@/lib/actions/product.actions'
+import { Bounce, toast } from 'react-toastify'
 
-const ProductDetailsComponent = ({productId,name,description,inStock, prices,categoryName}:any) => {
+
+const ProductDetailsComponent = ({currentUserId,productId,name,description,inStock, prices,categoryName}:any) => {
   const [pairQuantity, setPairQuantity] = useState(1);
   const [selectedPair, setSelectedPair] = useState(prices[0]);
   const [totalPrice, setTotalPrice] = useState(selectedPair.price);
+  const router = useRouter()
+
 
 
   const handlePairQuantityChange = (newPairQuantity:any) => {
@@ -50,6 +56,29 @@ const shareOnSocialMedia = (platform:any) => {
 
     window.open(shareUrl, '_blank');
   };
+
+  const onAddToCartClick = async() => {
+    try {
+      if(!currentUserId) return router.push('/sign-in')
+        await addToCart(currentUserId, "Product", productId, selectedPair, pairQuantity)
+        toast(`Item added to Cart`,{
+          position: 'top-center',
+          autoClose: 5000,
+          theme: "light",
+          transition: Bounce,
+          type: "success"
+       })
+    } catch (error) {
+      toast(`Adding to Cart Failed`,{
+        position: 'top-center',
+        autoClose: 5000,
+        theme: "light",
+        transition: Bounce,
+        type: "error"
+     })
+    }
+   
+  }
 
 
   return (
@@ -93,7 +122,7 @@ const shareOnSocialMedia = (platform:any) => {
                             onClick={() => handlePairQuantityChange(pairQuantity + 1)}/>
                         </button>
                     </div>
-                    <Button className='flex-1 h-full text-lg bg-green-1 hover:bg-green-800'>Add to Cart</Button>
+                    <Button className='flex-1 h-full text-lg bg-green-1 hover:bg-green-800' onClick={onAddToCartClick} >Add to Cart</Button>
                     <button  className='rounded-full px-auto flex justify-center items-center w-14 hover:bg-green-100'><IoHeartOutline  size={23}/></button>
                 </section>
                 <section className="flex justify-between items-center ">

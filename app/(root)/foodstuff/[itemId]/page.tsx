@@ -3,6 +3,8 @@ import ProductDetailCarousel from '@/components/CustomElements/ProductDetailCaro
 import ProductDetailsComponent from '@/components/CustomElements/ProductDetailsComponent'
 import RelatedProducts from '@/components/CustomElements/RelatedProducts'
 import { getProductDetails } from '@/lib/actions/product.actions'
+import { fetchUser } from '@/lib/actions/user.actions'
+import { currentUser } from '@clerk/nextjs/server'
 import React from 'react'
 
 
@@ -13,6 +15,9 @@ interface Params {
 }
 const FoodStuffDetail = async({params}:Params) => {
   const {product,category, relatedProducts} = await getProductDetails(params.itemId);
+  const user = await currentUser()
+  let userInfo;
+  if(user) {userInfo = await fetchUser(user?.id);}
 
   return (
     <section className='w-full flex flex-col'>
@@ -22,7 +27,8 @@ const FoodStuffDetail = async({params}:Params) => {
                 <ProductDetailCarousel images ={product.images}/>
             </section>
             <ProductDetailsComponent 
-              productId={JSON.stringify(product._id)}
+              currentUserId={userInfo?._id ? JSON.parse(JSON.stringify(userInfo?._id)) : null}
+              productId={JSON.parse(JSON.stringify(product._id))}
               name={product.name} 
               description={product.description} 
               categoryName={category.name} 

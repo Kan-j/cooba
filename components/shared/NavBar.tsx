@@ -18,6 +18,9 @@ import { currentUser } from '@clerk/nextjs/server'
 import ProfileButton from '../CustomElements/ProfileButton'
 import CustomLoginButton from '../CustomElements/CustomLoginButton'
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
+import { fetchUser } from '@/lib/actions/user.actions'
+import CustomSignedInCartButton from '../CustomElements/CustomSignedInCartButton'
+import { fetchCartItems } from '@/lib/actions/product.actions'
 
   export const sidebarLinks = [
     {
@@ -57,6 +60,10 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
 
 const NavBar = async() => {
     const user = await currentUser();
+    let userInfo;
+    if(user) {userInfo = await fetchUser(user?.id);}
+
+    const cartItems = await fetchCartItems(userInfo.id)
 
   return (
     <nav className="flex w-full justify-between items-center px-6 sm:px-8 md:px-10 lg:px-20 py-6">
@@ -127,8 +134,14 @@ const NavBar = async() => {
             <section >
                 <button  className='rounded-full px-2 py-2 hover:bg-green-100'><IoHeartOutline  size={23}/></button>
             </section>
-            <section className="">
-                <button  className='rounded-full px-2 py-2 hover:bg-green-100'><BsCart  size={23}/></button>
+            <section className="mr-1">
+                <SignedIn>
+                    <CustomSignedInCartButton CartItems={JSON.parse(JSON.stringify(cartItems))}/>
+                </SignedIn>
+                <SignedOut>
+                    <button  className='rounded-full px-2 py-2 hover:bg-green-100'><BsCart  size={23}/></button>
+                </SignedOut>
+               
             </section>
             <SignedIn>
             {/* Mount the UserButton component */}
