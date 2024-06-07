@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import React, { useState, useEffect, useRef, SetStateAction } from "react";
-import { BiLeftArrow } from "react-icons/bi";
 import { FaGreaterThan, FaLessThan } from "react-icons/fa";
 import Slider from "react-slick";
 
@@ -32,7 +31,7 @@ const ProductDetailCarousel = ({images}:{images:string[]}) => {
           return (
             <section className="flex w-12">
                <a>
-              <Image src={images[i]} alt="alt" className="w-60" width={240} height={240} />
+              <Image src={images[i]} alt="alt" className="w-60" width={240} height={240} priority={true} />
               </a>
             </section>
           );
@@ -53,7 +52,7 @@ const ProductDetailCarousel = ({images}:{images:string[]}) => {
               return (
                 <div key={image} className="w-full">
                   {/* <img src={image} /> */}
-                  <Image src={image} alt="alt" className="w-full" width={400}  height={400} priority={true}/>
+                  <Image src={image} alt="alt" className="w-full" width={400}  height={400} priority={true} loading={"eager"}/>
               </div>
               )
             })}

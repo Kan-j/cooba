@@ -4,11 +4,20 @@ import React from 'react'
 
 import { Button } from '@/components/ui/button'
 import ShoppingCartItem from '@/components/CustomElements/ShoppingCartItem'
+import { currentUser } from '@clerk/nextjs/server'
+import { fetchUser } from '@/lib/actions/user.actions'
+import { fetchCartItems } from '@/lib/actions/product.actions'
 
 
 
 
-const Cart = () => {
+const Cart = async() => {
+    const user = await currentUser();
+    let userInfo;
+    if(user) {userInfo = await fetchUser(user?.id);}
+
+    const cartItems = await fetchCartItems(userInfo?._id)
+
   return (
     <section className='w-full flex flex-col'>
         <CustomBreadCrumbs/>
@@ -16,6 +25,13 @@ const Cart = () => {
             <h1 className='font-bold text-xl '>My Shopping Cart</h1>
             <section className="grid grid-cols-1 md:grid-cols-9 gap-10">
                 <section className="flex gap-4 md:col-span-6 w-full shadow-md md:px-8 md:py-8 flex-col rounded-lg">
+                    {cartItems.map((cart:any)=> {
+                        return (
+                            <>
+                            <h1>item here</h1>
+                            </>
+                        )
+                    })}
                     <ShoppingCartItem/>
                     <ShoppingCartItem/>
                     <ShoppingCartItem/>

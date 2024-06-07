@@ -63,6 +63,7 @@ const NavBar = async() => {
     let userInfo;
     if(user) {userInfo = await fetchUser(user?.id);}
 
+    
     const cartItems = await fetchCartItems(userInfo?._id)
 
   return (

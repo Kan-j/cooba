@@ -3,16 +3,7 @@ import React, { useState } from 'react'
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
  
 import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+
 import { Badge } from '../ui/badge'
 import { IoClose } from 'react-icons/io5'
 
@@ -28,53 +19,7 @@ const FilterAndSort = ({type}: {type: 'filter' | 'search'}) => {
   return (
     <section className='w-full mb-5'>
         <section className="flex flex-col w-full gap-4">
-            <section className="flex justify-between w-full">
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="outline">Select Category</Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56">
-                        <DropdownMenuCheckboxItem
-                        checked={showStatusBar}
-                        onCheckedChange={setShowStatusBar}
-                        >
-                        All
-                        </DropdownMenuCheckboxItem>
-                        <DropdownMenuCheckboxItem
-                        checked={showActivityBar}
-                        onCheckedChange={setShowActivityBar}
-                        >
-                        Vegetables
-                        </DropdownMenuCheckboxItem>
-                        <DropdownMenuCheckboxItem
-                        checked={showPanel}
-                        onCheckedChange={setShowPanel}
-                        >
-                        Fruits
-                        </DropdownMenuCheckboxItem>
-                        <DropdownMenuCheckboxItem
-                        checked={meatAndFish}
-                        onCheckedChange={setMeatAndFish}
-                        >
-                        Meat and Fish
-                        </DropdownMenuCheckboxItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-
-
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="outline">Sort</Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56">
-                        <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-                        <DropdownMenuRadioItem value="top">Top</DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem value="bottom">Bottom</DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem value="right">Right</DropdownMenuRadioItem>
-                        </DropdownMenuRadioGroup>
-                    </DropdownMenuContent>
-                    </DropdownMenu>
-            </section>
+            
 
             <section className="flex justify-between items-baseline border-b py-2 px-2">
                 {type === 'filter' ?<section className="flex gap-2 w-1/2 overflow-x-scroll">
@@ -97,3 +42,18 @@ const FilterAndSort = ({type}: {type: 'filter' | 'search'}) => {
 }
 
 export default FilterAndSort
+
+
+
+{/* <DropdownMenu>
+<DropdownMenuTrigger asChild>
+    <Button variant="outline">Sort</Button>
+</DropdownMenuTrigger>
+<DropdownMenuContent className="w-56">
+    <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+    <DropdownMenuRadioItem value="top">Top</DropdownMenuRadioItem>
+    <DropdownMenuRadioItem value="bottom">Bottom</DropdownMenuRadioItem>
+    <DropdownMenuRadioItem value="right">Right</DropdownMenuRadioItem>
+    </DropdownMenuRadioGroup>
+</DropdownMenuContent>
+</DropdownMenu> */}

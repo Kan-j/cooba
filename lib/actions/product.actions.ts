@@ -5,6 +5,8 @@ import Cart from "../models/Cart.model";
 import Category from "../models/Category.model";
 import Package from "../models/Package.model";
 import Product from "../models/Product.model";
+import { revalidatePath } from "next/cache";
+import mongoose from "mongoose";
 
 
 
@@ -56,7 +58,7 @@ export async function getProductDetails(productId: string) {
     const relatedProducts = await Product.find({
       _id: { $ne: product._id },
       category: product.category._id, // Ensure we use the correct ObjectId
-    })
+    }).populate('category')
       .limit(4)
       .exec();
 
@@ -143,7 +145,7 @@ export async function getProductDetails(productId: string) {
 
 
 
-export async function addToCart(userId: string, itemType: 'Product' | 'Package', itemId: string, selectedPair: { quantity: number, price: number }, pairQuantity: number) {
+export async function addToCart(userId: string, itemType: 'Product' | 'Package', itemId: string, selectedPair: { quantity: number, price: number }, pairQuantity: number, pathname:string) {
   try {
     // Connect to the database
     await connectToDatabase();
@@ -204,7 +206,7 @@ export async function addToCart(userId: string, itemType: 'Product' | 'Package',
 
     // Save the cart
     await cart.save();
-    
+    revalidatePath(pathname)
 
     console.log('Item added to cart successfully:', cart);
   } catch (error: any) {
@@ -245,5 +247,72 @@ export async function fetchCartItems(userId: string) {
   } catch (error: any) {
     console.error('Error fetching cart items:', error.message);
     return [];
+  }
+}
+
+export async function getProductsByCategoriesAndSearch(categories:string | string[] = "", limit = 0, pageSize = 10, page = 1, searchQuery = '') {
+  try {
+    await connectToDatabase();
+
+    // Ensure the current page is at least 1
+    const currentPage = page > 0 ? page : 1;
+    const currentSize = pageSize;
+
+    let categoriesArray:string[] = [];
+    // Ensure categories is an array
+    if (categories && typeof categories === 'string') {
+      categoriesArray = categories?.split(',');
+    }
+
+    // Convert category strings to ObjectId
+    const categoryObjectIds = categoriesArray.map((category:any) => new mongoose.Types.ObjectId(category));
+
+    // Define the query for products under the given categories and search query
+    let query:any = {};
+
+    if (categories.length > 0) {
+      query.category = { $in: categoryObjectIds };
+    }
+
+
+    if (searchQuery) {
+      query.$or = [
+        { name: { $regex: searchQuery, $options: 'i' } },
+        { description: { $regex: searchQuery, $options: 'i' } },
+      ];
+    }
+
+    let productQuery = Product.find(query).populate('category');
+
+    // Apply pagination
+    if (limit && limit > 0) {
+      productQuery = productQuery.limit(limit);
+    } else {
+      productQuery = productQuery.skip(currentSize * (currentPage - 1)).limit(currentSize + 1);
+    }
+
+    // Execute the query to get products
+    const products = await productQuery.exec();
+
+    // Get the total count of products matching the query
+    const totalProducts = await Product.countDocuments(query);
+    const totalPages = Math.ceil(totalProducts / currentSize);
+
+
+    // Determine if there are more products (next page) or previous page
+    const isNext = products.length > currentSize;
+    const isPrev = currentPage > 1;
+
+    // Return products without the extra one used for pagination check
+    return {
+      products: isNext ? products.slice(0, -1) : products,
+      isNext,
+      isPrev,
+      currentPage,
+      totalPages,
+      totalProducts
+    };
+  } catch (error:any) {
+    throw new Error(`Failed to fetch products: ${error.message}`);
   }
 }

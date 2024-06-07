@@ -32,3 +32,16 @@ export async function getCategories(limit?: number, productLimit?: number, pageS
     }
   }
   
+
+export async function getAllCategories() {
+    try {
+      await connectToDatabase();
+  
+      // Fetch all categories from the database
+      const categories = await Category.find({}).exec();
+  
+      return categories;
+    } catch (error:any) {
+      throw new Error(`Failed to fetch categories: ${error.message}`);
+    }
+  }

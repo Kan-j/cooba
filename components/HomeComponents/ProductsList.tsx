@@ -3,6 +3,8 @@ import Product from "../CustomElements/Product"
 
 
 import { ObjectId } from 'mongoose';
+import { currentUser } from "@clerk/nextjs/server";
+import { fetchUser } from "@/lib/actions/user.actions";
 
 // Define the Price type
 interface Price {
@@ -21,17 +23,14 @@ interface Product {
   __v: number;
 }
 
-interface ProductsListProps {
-  products: Product[];
-}
 
 
-const  ProductsList: React.FC<ProductsListProps> = ({products}:any) => {
+const  ProductsList = ({products}:any) => {
   return (
     <article className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
         {products.map((product:any)=> {
           return (
-            <Product product={product} key={product._id}/>
+            <Product product={JSON.parse(JSON.stringify(product))} key={product._id}/>
           )
         })}
     </article>
