@@ -29,6 +29,7 @@ const Shop = async({searchParams}:Params) => {
       <PaginationSection NextPageExists={response.isNext} PrevPageExists={response.isPrev} totalPages={response.totalPages} currentPage={response.currentPage}/>
       </>
       :<>
+      <p className="flex justify-center ">Oops, no product found</p>
       </>
     
     }
