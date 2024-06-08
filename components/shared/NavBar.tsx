@@ -13,14 +13,14 @@ import {
   } from "@/components/ui/sheet"
 import { cn } from '@/lib/utils'
 import { FaClipboard, FaInfoCircle, FaShoppingCart, FaStore, FaUserCircle } from 'react-icons/fa'
-import { BiLogIn, BiMenuAltLeft } from 'react-icons/bi'
+import { BiMenuAltLeft } from 'react-icons/bi'
 import { currentUser } from '@clerk/nextjs/server'
-import ProfileButton from '../CustomElements/ProfileButton'
 import CustomLoginButton from '../CustomElements/CustomLoginButton'
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
 import { fetchUser } from '@/lib/actions/user.actions'
 import CustomSignedInCartButton from '../CustomElements/CustomSignedInCartButton'
 import { fetchCartItems } from '@/lib/actions/product.actions'
+import SearchBar from '../CustomElements/SearchBar'
 
   export const sidebarLinks = [
     {
@@ -116,14 +116,7 @@ const NavBar = async() => {
         </section>
         
         <section className="w-4/12">
-            <label className="md:flex h-10 w-full rounded-md items-center border border-input bg-background px-3 py-2 text-sm hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="gray" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
-                <input 
-                type="text" 
-                className="grow w-full text-gray-900 px-2 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0  focus-visible:ring-offset-0" 
-                placeholder="Search Product ...." 
-                />
-            </label>
+            <SearchBar smallScreen={false}/>
         </section>
         
         <section className='md:flex hidden gap-4 2xl:gap-10'>

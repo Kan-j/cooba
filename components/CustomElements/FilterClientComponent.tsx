@@ -14,6 +14,8 @@ import {
 
   import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { Badge } from '../ui/badge'
+import { IoClose } from 'react-icons/io5'
 
 const FilterClientComponent = ({allCategories}:any) => {
     type Checked = DropdownMenuCheckboxItemProps["checked"]
@@ -29,6 +31,12 @@ const FilterClientComponent = ({allCategories}:any) => {
     },[allCategories])
 
 
+    useEffect(() => {
+      const initialCategories = searchParams.get('categories');
+      if (initialCategories) {
+        setSelectedCategories(initialCategories.split(','));
+      }
+    }, [searchParams]);
 
 
       const handleShowResults = (updatedCategories: string[]) => {
@@ -54,52 +62,48 @@ const FilterClientComponent = ({allCategories}:any) => {
         });
       };
 
+      const handleCategoryRemove = (categoryId: string) => {
+        const updatedCategories = selectedCategories.filter((id) => id !== categoryId);
+        setSelectedCategories(updatedCategories);
+        handleShowResults(updatedCategories);
+      };
       
 
     return (
-    <section className="flex justify-between w-full">
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button variant="outline">Select Category</Button>
-            </DropdownMenuTrigger>
-            {/* <DropdownMenuContent className="w-56">
-                <DropdownMenuCheckboxItem
-                checked={showStatusBar}
-                onCheckedChange={setShowStatusBar}
-                >
-                All
-                </DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem
-                checked={showActivityBar}
-                onCheckedChange={setShowActivityBar}
-                >
-                Vegetables
-                </DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem
-                checked={showPanel}
-                onCheckedChange={setShowPanel}
-                >
-                Fruits
-                </DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem
-                checked={meatAndFish}
-                onCheckedChange={setMeatAndFish}
-                >
-                Meat and Fish
-                </DropdownMenuCheckboxItem>
-            </DropdownMenuContent> */}
-            <DropdownMenuContent className="w-56">
-            {categories && categories.map((category:any) => (
-                <DropdownMenuCheckboxItem
-                key={category._id}
-                checked={selectedCategories.includes(category._id)}
-                onCheckedChange={() => handleCategoryChange(category._id)}
-                >
-                {category.name}
-                </DropdownMenuCheckboxItem>
-            ))}
-            </DropdownMenuContent>
-            </DropdownMenu>
+      <section className="flex flex-col gap-2">
+        <section className="flex justify-between w-full">
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="outline">Select Category</Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                {categories && categories.map((category:any) => (
+                    <DropdownMenuCheckboxItem
+                    key={category._id}
+                    checked={selectedCategories.includes(category._id)}
+                    onCheckedChange={() => handleCategoryChange(category._id)}
+                    >
+                    {category.name}
+                    </DropdownMenuCheckboxItem>
+                ))}
+                </DropdownMenuContent>
+                </DropdownMenu>
+        </section>
+          {selectedCategories.length > 0 && (
+        <section className="flex justify-between items-baseline border-b py-2 px-2">
+          <section className="flex gap-2 w-full overflow-x-scroll">
+            {selectedCategories.map((categoryId: string) => {
+              const category:any = categories.find((cat: any) => cat._id === categoryId);
+              return category ? (
+                <Badge key={categoryId} variant="outline" className='px-2 text-sm py-1 rounded-sm cursor-pointer'>
+                  {category.name}
+                  <IoClose className="ml-1" onClick={() => handleCategoryRemove(categoryId)} />
+                </Badge>
+              ) : null;
+            })}
+          </section>
+        </section>
+      )}
     </section>
   )
 }
