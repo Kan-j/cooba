@@ -123,7 +123,7 @@ const shareOnSocialMedia = (platform:any) => {
                             onClick={() => handlePairQuantityChange(pairQuantity + 1)}/>
                         </button>
                     </div>
-                    <Button className='flex-1 h-full text-lg bg-green-1 hover:bg-green-800' onClick={onAddToCartClick} >Add to Cart</Button>
+                    <Button className='flex-1 h-full text-lg bg-green-1 hover:bg-green-800' onClick={onAddToCartClick} disabled={!inStock} >Add to Cart</Button>
                     <button  className='rounded-full px-auto flex justify-center items-center w-14 hover:bg-green-100'><IoHeartOutline  size={23}/></button>
                 </section>
                 <section className="flex justify-between items-center ">

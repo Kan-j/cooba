@@ -85,62 +85,6 @@ export async function getProductDetails(productId: string) {
 }
 
 
-// CART COMES HERE
-
-// Server to create a cart item
-// export async function addToCart(userId: string, itemType: 'Product' | 'Package', itemId: string, selectedPair: { quantity: number, price: number }, pairQuantity: number) {
-//   try {
-//     // Connect to the database
-//     await connectToDatabase();
-
-//     // Find the product or package
-//     let item;
-//     if (itemType === 'Product') {
-//       item = await Product.findById(itemId).exec();
-//       if (!item) {
-//         throw new Error('Product not found');
-//       }
-//     } else if (itemType === 'Package') {
-//       item = await Package.findById(itemId).exec();
-//       if (!item) {
-//         throw new Error('Package not found');
-//       }
-//     }
-
-//     // Calculate total amount for the cart item
-//     const totalAmount = selectedPair.price * pairQuantity;
-
-//     // Find or create the cart for the user
-//     let cart = await Cart.findOne({ user: userId }).exec();
-//     if (!cart) {
-//       cart = new Cart({
-//         user: userId,
-//         items: [],
-//         total: 0,
-//       });
-//     }
-
-//     // Add the item to the cart
-//     cart.items.push({
-//       itemType,
-//       product: itemType === 'Product' ? itemId : undefined,
-//       package: itemType === 'Package' ? itemId : undefined,
-//       selectedPair,
-//       pairQuantity,
-//       totalAmount,
-//     });
-
-//     // Update the cart total
-//     cart.total += totalAmount;
-
-//     // Save the cart
-//     await cart.save();
-
-//     console.log('Item added to cart successfully:', cart);
-//   } catch (error:any) {
-//     console.error('Error adding item to cart:', error.message);
-//   }
-// }
 
 
 
@@ -214,6 +158,7 @@ export async function addToCart(userId: string, itemType: 'Product' | 'Package',
   }
 }
 
+
 export async function fetchCartItems(userId: string) {
   try {
     // Connect to the database
@@ -249,6 +194,7 @@ export async function fetchCartItems(userId: string) {
     return [];
   }
 }
+
 
 export async function getProductsByCategoriesAndSearch(categories:string | string[] = "", limit = 0, pageSize = 10, page = 1, searchQuery = '') {
   try {
@@ -314,5 +260,63 @@ export async function getProductsByCategoriesAndSearch(categories:string | strin
     };
   } catch (error:any) {
     throw new Error(`Failed to fetch products: ${error.message}`);
+  }
+}
+
+export async function updateCartItem(userId: string, itemId: string, newQuantity: number, newSelectedPair: { quantity: string, price: number }, itemType: 'Product' | 'Package', pathname: string) {
+  try {
+    await connectToDatabase();
+
+    const cart = await Cart.findOne({ user: userId }).exec();
+    if (!cart) {
+      throw new Error('Cart not found');
+    }
+
+    const cartItem = cart.items.find((item: any) =>
+      item[itemType.toLowerCase()]?.toString() === itemId &&
+      item.selectedPair.quantity === newSelectedPair.quantity &&
+      item.selectedPair.price === newSelectedPair.price
+    );
+
+    if (!cartItem) {
+      throw new Error('Cart item not found');
+    }
+
+    cartItem.pairQuantity = newQuantity;
+    cartItem.totalAmount = newQuantity * newSelectedPair.price;
+
+    // Recalculate cart total
+    cart.total = cart.items.reduce((acc: number, item: any) => acc + item.totalAmount, 0);
+
+    await cart.save();
+    revalidatePath(pathname);
+  } catch (error:any) {
+    console.error('Error updating cart item:', error.message);
+  }
+}
+
+
+export async function deleteCartItem(userId: string, itemId: string, selectedPair: { quantity: string, price: number }, itemType: 'Product' | 'Package', pathname: string) {
+  try {
+    await connectToDatabase();
+
+    const cart = await Cart.findOne({ user: userId }).exec();
+    if (!cart) {
+      throw new Error('Cart not found');
+    }
+
+    cart.items = cart.items.filter((item: any) =>
+      !(item[itemType.toLowerCase()]?.toString() === itemId &&
+        item.selectedPair.quantity === selectedPair.quantity &&
+        item.selectedPair.price === selectedPair.price)
+    );
+
+    // Recalculate cart total
+    cart.total = cart.items.reduce((acc: number, item: any) => acc + item.totalAmount, 0);
+
+    await cart.save();
+    revalidatePath(pathname);
+  } catch (error:any) {
+    console.error('Error deleting cart item:', error.message);
   }
 }
