@@ -1,13 +1,11 @@
 import CustomBreadCrumbs from '@/components/CustomElements/CustomBreadCrumbs'
-import FilterAndSort from '@/components/CustomElements/FilterAndSort'
 import FilterServerComponent from '@/components/CustomElements/FilterServerComponent'
 import PaginationSection from '@/components/CustomElements/PaginationSection'
 import SearchBar from '@/components/CustomElements/SearchBar'
 import ProductsList from '@/components/HomeComponents/ProductsList'
-import { Badge } from '@/components/ui/badge'
 import { getProductsByCategoriesAndSearch } from '@/lib/actions/product.actions'
 import React from 'react'
-import { IoClose } from 'react-icons/io5'
+
 
 
 interface Params {
@@ -45,16 +43,14 @@ const Shop = async({searchParams}:Params) => {
       </section>
       {(response.products.length >  0)?  
       <>
-      <ProductsList products={response.products}/>
-      <PaginationSection NextPageExists={response.isNext} PrevPageExists={response.isPrev} totalPages={response.totalPages} currentPage={response.currentPage}/>
+        <ProductsList products={response.products}/>
+        <PaginationSection NextPageExists={response.isNext} PrevPageExists={response.isPrev} totalPages={response.totalPages} currentPage={response.currentPage}/>
       </>
       :<>
-      <p className="flex justify-center ">Oops, no product found</p>
+        <p className="flex justify-center ">Oops, no product found</p>
       </>
     
     }
-     
-      
     </section>
   )
 }

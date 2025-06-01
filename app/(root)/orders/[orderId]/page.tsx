@@ -1,11 +1,8 @@
 import CustomBreadCrumbs from '@/components/CustomElements/CustomBreadCrumbs'
 import { PaymentMethodRadioGroup } from '@/components/CustomElements/PaymentMethodRadioGroup'
 import SummaryProductItem from '@/components/CustomElements/SummaryProductItem'
-import { Button } from '@/components/ui/button'
 import React from 'react'
-import { BiPlus } from 'react-icons/bi'
-import { FaTruck } from 'react-icons/fa'
-import { IoCard, IoLocation } from 'react-icons/io5'
+
 
 const OrderDetailsPage = () => {
   return (
